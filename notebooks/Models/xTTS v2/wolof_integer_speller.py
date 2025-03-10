@@ -8,7 +8,7 @@ units = {
     6: "juróom benn",
     7: "juróom ñaar",
     8: "juróom ñett",
-    9: "juróom ñeent"
+    9: "juróom ñeent",
 }
 
 tens = {
@@ -20,26 +20,25 @@ tens = {
     6: "juróom benn fukk",
     7: "juróom ñaar fukk",
     8: "juróom ñett fukk",
-    9: "juróom ñeent fukk"
+    9: "juróom ñeent fukk",
 }
-def process_block(n: int)-> str :
+
+
+def process_block(n: int) -> str:
 
     if n == 0:
         return ""
 
     result: str = ""
 
-    # Processing hundreds
     hundreds = n // 100
     if hundreds > 0:
         match hundreds:
             case 1:
                 result += "téeméer "
             case _:
-                result += units[hundreds] +"i" + " téeméer "
+                result += units[hundreds] + "i" + " téeméer "
 
-
-    # Processing tens
     remainder = n % 100
     ten = remainder // 10
     unit = remainder % 10
@@ -49,9 +48,6 @@ def process_block(n: int)-> str :
             result += "ak "
         result += tens[ten] + " "
 
-
-
-    # Processing units
     if unit > 0:
         if result:
             result += "ak "
@@ -59,27 +55,21 @@ def process_block(n: int)-> str :
 
     return result.strip()
 
-def spell_number_in_wolof(number: int ) -> str:
+
+def spell_number_in_wolof(number: int) -> str:
     """
     Function that takes an integer and returns its pronunciation in Wolof.
     Uses a block approach .
     """
 
-
-
-    # Special case: zero
     if number == 0:
         return units[0]
 
     number = abs(number)
 
-    # For numbers greater than 999,999,999
     if number > 999_999_999:
         return "Number too large to process"
 
-    # Function to process blocks from 1 to 999
-
-    # Decomposition of the number into blocks
     billions = number // 1_000_000_000
     millions = (number % 1_000_000_000) // 1_000_000
     thousands = (number % 1_000_000) // 1_000
@@ -87,37 +77,33 @@ def spell_number_in_wolof(number: int ) -> str:
 
     result = ""
 
-    # Processing billions (just in case)
     if billions > 0:
         match billions:
             case 1:
                 result += "milliar "
             case _:
-                result += process_block(billions) +"i" + " milliar "
+                result += process_block(billions) + "i" + " milliar "
 
-    # Processing millions
     if millions > 0:
-        if result :
+        if result:
             result += "ak "
         match millions:
             case 1:
                 result += "million "
             case _:
-                result += process_block(millions) +"i" + " million "
+                result += process_block(millions) + "i" + " million "
 
-    # Processing thousands
     if thousands > 0:
-        if result :
+        if result:
             result += "ak "
         match thousands:
             case 1:
                 result += "junni "
             case _:
-                result += process_block(thousands) +"i" + " junni "
+                result += process_block(thousands) + "i" + " junni "
 
-    # Processing units
     if units_block > 0 or (number == 0):
-        if result :
+        if result:
             result += "ak "
         result += process_block(units_block)
 
