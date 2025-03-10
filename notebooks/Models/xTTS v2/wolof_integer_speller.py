@@ -120,7 +120,6 @@ def spell_number_in_wolof(number):
     if units_block > 0 or (number == 0):
         if result :
             result += "ak "
-        print(units_block   )
         result += process_block(units_block)
 
     return result.strip()
