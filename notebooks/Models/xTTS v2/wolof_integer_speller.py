@@ -22,11 +22,12 @@ tens = {
     8: "juróom ñett fukk",
     9: "juróom ñeent fukk"
 }
-def process_block(n):
+def process_block(n: int)-> str :
+
     if n == 0:
         return ""
 
-    result = ""
+    result: str = ""
 
     # Processing hundreds
     hundreds = n // 100
@@ -44,24 +45,24 @@ def process_block(n):
     unit = remainder % 10
 
     if ten > 0:
-        if result:  
+        if result:
             result += "ak "
         result += tens[ten] + " "
-         
-            
+
+
 
     # Processing units
     if unit > 0:
-        if result:  
+        if result:
             result += "ak "
         result += units[unit]
 
     return result.strip()
 
-def spell_number_in_wolof(number):
+def spell_number_in_wolof(number: int ) -> str:
     """
     Function that takes an integer and returns its pronunciation in Wolof.
-    Uses a block approach to handle numbers up to 999,999,999.
+    Uses a block approach .
     """
 
 
@@ -70,9 +71,7 @@ def spell_number_in_wolof(number):
     if number == 0:
         return units[0]
 
-    # For negative numbers
-    if number < 0:
-        return "minus " + spell_number_in_wolof(abs(number))
+    number = abs(number)
 
     # For numbers greater than 999,999,999
     if number > 999_999_999:
@@ -123,5 +122,3 @@ def spell_number_in_wolof(number):
         result += process_block(units_block)
 
     return result.strip()
-
-
