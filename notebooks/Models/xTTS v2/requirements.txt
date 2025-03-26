@@ -3,7 +3,7 @@ numpy==1.23.0;python_version<="3.10"
 numpy>=1.24.3;python_version>"3.10"
 matplotlib
 cython>=0.29.30
-scipy>=1.11.2
+scipy==1.11.2
 torch>=2.1
 torchaudio
 transformers
